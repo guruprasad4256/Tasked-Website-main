@@ -12,7 +12,7 @@ import Logo from "@/assets/logo.png";
 const Tasks = () => {
   return (
     <div>
-      <Header color="#fff" img={Logo}/>
+      <Header />
       <TaskHerobg />
       {/* <TaskHero /> */}
       <TaskHowItWorks />
