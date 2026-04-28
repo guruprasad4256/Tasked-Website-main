@@ -1,0 +1,38 @@
+.marquee {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content; /* track stretches to fit */
+  animation: scroll 30s linear infinite;
+  transition: transform 0.3s ease;
+  gap: 8rem;
+}
+
+.marquee__group {
+  display: flex;
+  gap: 8rem; /* spacing between logos */
+}
+
+.marquee__group img {
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.marquee__group img:hover {
+  transform: scale(1.1);
+}
+
+/* Smooth infinite scroll */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

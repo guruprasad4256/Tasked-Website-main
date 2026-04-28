@@ -1,0 +1,58 @@
+.fancy {
+  --offset: 3px; /* Border thickness */
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/* Conic gradient animated border */
+.fancy::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(transparent 270deg, #ff0202, transparent);
+  animation: rotate 2s linear infinite;
+  z-index: 0; /* keep it below everything */
+}
+
+/* Inner mask to create border thickness */
+.fancy::after {
+  content: "";
+  position: absolute;
+  inset: var(--offset); /* creates the 20px border */
+  border-radius: inherit;
+  background: #000; /* or use your page bg color */
+  z-index: 1;
+}
+
+/* Actual content (kept above the mask) */
+.fancy > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 🔥 Inner shadow that affects only the content, not the border */
+.inner-shadow-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: var(--offset); /* start after the border */
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 20px 30px rgba(51, 9, 16, 0.9),   /* top shadow */
+              inset 0 -20px 30px rgba(55, 46, 48, 0.9); /* bottom shadow */
+  z-index: 3;
+}
+
+/* Rotate animation */
+@keyframes rotate {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
