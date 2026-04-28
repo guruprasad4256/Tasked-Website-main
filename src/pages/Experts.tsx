@@ -14,7 +14,7 @@ import Logo from "@/assets/WhiteLogo.png";
 const Experts = () => {
   return (
     <div>
-      <Header color="Transparent" img={Logo}/>
+      <Header />
       <ExpertHero />
       <ExpertHowItWorks />
       <ExpertWhyChooseUS />

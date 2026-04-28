@@ -6,7 +6,7 @@ import Logo from "@/assets/logo.png";
 const Privacy = () => {
   return (
     <div>
-      <Header color="#fff" img={Logo}/>
+      <Header />
       <PrivacyPolicy />
       <FooterSection />
     </div>

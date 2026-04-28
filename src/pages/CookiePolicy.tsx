@@ -6,7 +6,7 @@ import Logo from "@/assets/logo.png";
 const Cookie = () => {
   return (
     <div>
-      <Header color="#fff" img={Logo}/>
+      <Header />
       <CookiePolicy/>
       <FooterSection />
     </div>

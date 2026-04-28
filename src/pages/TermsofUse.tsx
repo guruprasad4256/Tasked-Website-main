@@ -6,7 +6,7 @@ import Logo from "@/assets/logo.png";
 const Terms = () => {
   return (
     <div>
-      <Header color="#fff" img={Logo}/>
+      <Header />
       <TermsofUse/>
       <FooterSection />
     </div>

@@ -11,7 +11,7 @@ import Logo from "@/assets/WhiteLogo.png";
 const Tasked = () => {
   return (
     <div className="bg-white min-h-screen">
-      <Header color="#9E0000" img={Logo} />
+      <Header />
       <ProductHero />   
       <WhyFestPosts /> 
       <PastProjects />

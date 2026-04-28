@@ -24,7 +24,7 @@ const BlogArchive = () => {
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const fullUrl = `${SERVER_URL}${endpoint}?site=Curated for founders`;
+      const fullUrl = `${SERVER_URL}${endpoint}?site=Tasked`;
       
       try {
         setLoading(true);

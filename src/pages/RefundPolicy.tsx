@@ -6,7 +6,7 @@ import Logo from "@/assets/logo.png";
 const Refund = () => {
   return (
     <div>
-      <Header color="#fff" img={Logo}/>
+      <Header />
       <RefundPolicy/>
       <FooterSection />
     </div>

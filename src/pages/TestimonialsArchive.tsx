@@ -8,7 +8,7 @@ import Logo from "@/assets/WhiteLogo.png";
 const Testimonials = () => {
   return (
     <div className="bg-black text-white min-h-screen">
-      <Header color="Transparent" img={Logo}/>
+      <Header />
       <TestimonialsHero />    
       <TestimonialsArchive />   
       <TestimonialsCta /> 

@@ -6,7 +6,7 @@ import Logo from "@/assets/WhiteLogo.png";
 const Experts = () => {
   return (
     <div className="bg-black min-h-screen">
-      <Header color="black" img={Logo} />
+      <Header />
       <ExpertsArchive />      
       <Footer />
     </div>
