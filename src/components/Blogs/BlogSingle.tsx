@@ -143,18 +143,19 @@ const BlogSingle = () => {
           color: #000000 !important; 
           overflow-y: visible;
           text-align: justify;
+          overflow-wrap: break-word; /* Ensures text doesn't go out of container */
+          word-wrap: break-word;
         }
         
-        /* FIX: Preventing word splitting/cutting */
         .single-blog-content .ql-editor p, 
         .single-blog-content .ql-editor li, 
         .single-blog-content .ql-editor span, 
         .single-blog-content .ql-editor div { 
           color: #000000 !important; 
           white-space: normal !important; 
-          word-break: normal !important; /* Force browser to keep words whole */
-          overflow-wrap: break-word !important; /* Only break if word exceeds container width */
-          hyphens: none !important; /* Disable automated hyphenation */
+          word-break: normal !important; /* Keeps whole words together */
+          overflow-wrap: break-word !important; /* Breaks long strings like URLs at edge */
+          hyphens: none !important;
         }
 
         .single-blog-content .ql-editor a { 
@@ -185,11 +186,10 @@ const BlogSingle = () => {
         .single-blog-content .ql-editor tr:first-child td { background-color: #fafafa; font-weight: 700; color: #000 !important; }
       `}</style>
 
-      {/* --- MAIN GRID CONTAINER: Rigid 70/30 Split --- */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-[70%_30%] gap-8 xl:gap-12 items-start relative w-full">
+      <div className="max-w-7xl mx-auto flex flex-col xl:flex-row gap-8 xl:gap-12 items-start relative w-full">
         
-        {/* --- LEFT CONTENT COLUMN --- */}
-        <div className="w-full min-w-0 pb-8 pr-0 z-10">
+        {/* --- LEFT CONTENT COLUMN (70%) --- */}
+        <div className="xl:w-[70%] w-full min-w-0 pb-8 pr-0 z-10 break-words">
           
           <h1 className="text-3xl md:text-5xl xl:text-6xl font-black mb-8 leading-[1.15] text-[#F39200] tracking-tight text-balance break-words">
             {blog.title}
@@ -251,8 +251,8 @@ const BlogSingle = () => {
           )}
         </div>
 
-        {/* --- RIGHT SIDEBAR FIXED --- */}
-        <aside className="w-full min-w-0 shrink-0 sticky top-[100px] space-y-8 pb-10 z-20 md:pt-[50px]">
+        {/* --- RIGHT SIDEBAR FIXED (30%) --- */}
+        <aside className="xl:w-[30%] w-full min-w-0 shrink-0 sticky top-[100px] space-y-8 pb-10 z-20 md:pt-[50px]">
           
           <div className="flex items-center justify-start gap-3 px-4 mb-2">
              <Eye className="w-6 h-6 shrink-0 text-[#F39200]" />
@@ -286,7 +286,7 @@ const BlogSingle = () => {
         </aside>
       </div>
 
-      {/* --- CLEAN FULL WIDTH AUTHOR SECTION --- */}
+      {/* --- CLEAN FULL WIDTH AUTHOR SECTION AT THE VERY BOTTOM --- */}
       {blog.author && (
         <div className="w-full mt-12 pt-8 pb-8 border-t border-neutral-200/60 relative z-10 bg-[#FFFAED] flex justify-center">
           <a 
@@ -295,6 +295,7 @@ const BlogSingle = () => {
             rel="noopener noreferrer" 
             className="flex flex-row items-center justify-center gap-x-6 hover:opacity-80 transition-all group no-underline"
           >
+            {/* Circular author image */}
             <div className="relative shrink-0">
               <img 
                 src={blog.author.image || "https://via.placeholder.com/150"} 
@@ -303,6 +304,7 @@ const BlogSingle = () => {
               />
             </div>
             
+            {/* Heading and Name below each other */}
             <div className="text-left flex flex-col gap-y-0.5">
               <h3 className="text-lg md:text-2xl font-bold text-neutral-800 tracking-tight leading-tight">
                 About The Author
@@ -373,6 +375,7 @@ const AuthorAvatar = ({ author }: { author: { name: string; image: string } }) =
       />
     );
   }
+  // Fallback to initials if no image is provided
   return (
     <span className="w-8 h-8 rounded-full bg-[#F39200]/10 flex items-center justify-center text-[#F39200] font-black text-sm border border-[#F39200]/20 shrink-0">
       {author.name.charAt(0).toUpperCase()}
