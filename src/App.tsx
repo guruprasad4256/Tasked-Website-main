@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 import BlogSingle from "./pages/BlogSingle";
 import BlogArchive from "./pages/BlogArchive";
+import Blogtest from "./pages/Blogtest";
 import ComingSoon from "./pages/ComingSoon";
 
 function App() {
@@ -13,7 +14,8 @@ function App() {
       <Routes>
          <Route path="/" element={<ComingSoon />} />
         <Route path="/blogs" element={<BlogArchive />} />
-        <Route path="/blogs/:slug" element={<BlogSingle />} />       
+        <Route path="/blogs/:slug" element={<BlogSingle />} />
+        <Route path="/blogs/test" element={<Blogtest />} />
       </Routes>
       <Analytics />
       <SpeedInsights />

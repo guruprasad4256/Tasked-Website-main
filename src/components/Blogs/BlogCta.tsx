@@ -26,6 +26,12 @@ const CallRequestButton = ({ serverUrl }: CallRequestButtonProps) => {
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Strict Validation for ALL required fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.company) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
     // Strict Validation for Email
     if (!validateEmail(formData.email)) {
       alert("Please enter a valid email address.");
@@ -40,20 +46,39 @@ const CallRequestButton = ({ serverUrl }: CallRequestButtonProps) => {
 
     setIsSubmitting(true);
     
-    const payload = {
+    // Capturing the current page URL
+    const currentPage = window.location.href;
+
+    // Payload for Google Sheets
+    const googlePayload = {
       ...formData,
-      pageUrl: window.location.href,
+      pageUrl: currentPage,
       timestamp: new Date().toLocaleString()
     };
 
+    // Payload formatted for your live Database API
+    const databasePayload = {
+      Name: formData.name,
+      Phone: formData.phone,
+      Email: formData.email,
+      CompanyName: formData.company,
+      Date: new Date().toLocaleDateString('en-GB'),
+      // Storing exactly as 'url' to match your database column
+      url: currentPage, 
+      Source: "Blog cta" 
+    };
+
     try {
-      // Using text/plain to bypass CORS preflight with Google Apps Script
-      await axios.post(GOOGLE_SCRIPT_URL, JSON.stringify(payload), {
+      // 1. Save to Google Sheets
+      await axios.post(GOOGLE_SCRIPT_URL, JSON.stringify(googlePayload), {
         headers: {
           'Content-Type': 'text/plain;charset=utf-8',
         },
       });
       
+      // 2. Save directly to your Live Database API
+      await axios.post('https://api.manhoursonhire.com/api/leads', databasePayload);
+
       alert("Request sent successfully! Our experts will contact you soon.");
       setIsModalOpen(false);
       setFormData({ name: '', email: '', phone: '', company: '' });
@@ -108,7 +133,7 @@ const CallRequestButton = ({ serverUrl }: CallRequestButtonProps) => {
                 <input 
                   required
                   type="text" 
-                  placeholder="Full Name"
+                  placeholder="Full Name *"
                   className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#D8A623] transition-colors"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
@@ -116,7 +141,7 @@ const CallRequestButton = ({ serverUrl }: CallRequestButtonProps) => {
                 <input 
                   required
                   type="email" 
-                  placeholder="Email Address"
+                  placeholder="Email Address *"
                   className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#D8A623] transition-colors"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value.toLowerCase()})}
@@ -125,7 +150,7 @@ const CallRequestButton = ({ serverUrl }: CallRequestButtonProps) => {
                   required
                   type="tel"
                   maxLength={10}
-                  placeholder="Phone Number (10 digits)"
+                  placeholder="Phone Number (10 digits) *"
                   className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#D8A623] transition-colors"
                   value={formData.phone}
                   // Prevents non-numeric input immediately
@@ -134,7 +159,7 @@ const CallRequestButton = ({ serverUrl }: CallRequestButtonProps) => {
                 <input 
                   required
                   type="text" 
-                  placeholder="Company Name"
+                  placeholder="Company Name *"
                   className="w-full bg-black border border-white/10 rounded-xl px-4 py-3 outline-none focus:border-[#D8A623] transition-colors"
                   value={formData.company}
                   onChange={(e) => setFormData({...formData, company: e.target.value})}
