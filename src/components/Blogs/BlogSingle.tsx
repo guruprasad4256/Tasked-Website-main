@@ -329,20 +329,18 @@ const BlogSingle = () => {
         .single-blog-content .ql-editor table {
           border-collapse: collapse;
           width: 100%;
-          max-width: 100%;
-          display: block;
-          overflow-x: auto;
-          border: 1px solid #eee;
           margin: 24px 0;
-          border-radius: 1rem;
+          border: none !important;
+          table-layout: auto !important;
         }
 
         .single-blog-content .ql-editor td,
         .single-blog-content .ql-editor th {
-          border: 1px solid #eee;
-          padding: 16px;
-          background: #fff;
-          min-width: 100px;
+          border: 1px solid #e2e8f0 !important;
+          padding: 12px;
+          background: transparent !important;
+          min-width: 50px;
+          position: relative;
           color: #000 !important;
         }
 
