@@ -94,7 +94,7 @@ const FooterSection: React.FC = () => {
 
           {/* Copyright */}
           <div className="mx-auto max-w-6xl pt-6 text-center text-sm text-white/90">
-            © Copyright © 2025, SCGB Solutions Pvt. Ltd. and its affiliates. All
+            © Copyright {new Date().getFullYear()}, Tasked (A Brand of SCGB Solutions Pvt Ltd). All
             Rights Reserved.
           </div>
         </div>
